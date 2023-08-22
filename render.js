@@ -5,47 +5,26 @@ function setCanvasSize () {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-  setCanvasSize()
+  setCanvasSize();
+  let gameLoopObj = new GameLoop("GameCanvas");
+  gameLoopObj.init(); 
+  gameLoopObj.setRenderCallback(render);
 })
 
 window.addEventListener('resize', () => {
   setCanvasSize()
 })
 
-let canvas;
-let context;
-let tLast;
-
-window.onload = init;
-
-function init(){
-    canvas = document.getElementById('GameCanvas');
-    context = canvas.getContext('2d');
-
-    // Start the first frame request
-    window.requestAnimationFrame(gameLoop); // TODO try from DOMCOntentLoad
-}
-
-function gameLoop(tCurrent){
-  let tDeltaLoop = (tCurrent - tLast) / 1000
-  tLast = tCurrent
-
-  draw(tDeltaLoop);
-
-  // Keep requesting new frames
-  window.requestAnimationFrame(gameLoop);
-}
-
-function draw(tDelta){
+function render(tDelta) {
   // clear background
-  context.fillStyle = '#ffffff';
-  context.fillRect(0, 0, canvas.width, canvas.height);
+  this.context.fillStyle = '#ffffff';
+  this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-  // TODO render stuff
+  // TODO render sprites here
 
   // render fps
   let fps = (1 / tDelta).toFixed(2)
-  context.fillStyle = '#000000';
-  context.font = "15px";
-  context.fillText(fps + "fps", 10, 20);
+  this.context.fillStyle = '#000000';
+  this.context.font = "15px";
+  this.context.fillText(fps + "fps", 10, 20);
 }

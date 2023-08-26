@@ -1,7 +1,7 @@
 class Sprite {
   constructor(path, x, y, width, height) {
     this.path = path;
-    this, x = x;
+    this.x = x;
     this.y = y;
     this.height = height;
     this.width = width;
